@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false">
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/decline_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_do_not_disturb_alt_black_24dp"
+            app:backgroundTint="@android:color/holo_red_dark"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:rippleColor="#22ED7563" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bid_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="90dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_check_black_24dp"
+            app:backgroundTint="@android:color/holo_green_light"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="#226FE2B3" />
+
+
+        <com.yuyakaido.android.cardstackview.CardStackView
+            android:id="@+id/card_stack_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="12dp"
+            android:clipToPadding="false"
+            android:padding="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/decline_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></com.yuyakaido.android.cardstackview.CardStackView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <com.facebook.login.widget.LoginButton-->
+    <!--        android:id="@+id/logut_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:layout_marginBottom="16dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
+    <!--    <com.stripe.android.view.CardInputWidget-->
+    <!--        android:id="@+id/cardInputWidget"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintBottom_toTopOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.327"-->
+    <!--        tools:layout_editor_absoluteX="0dp" />-->
+
+    <!--    <Button-->
+    <!--        android:id="@+id/payButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:text="Pay"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.5"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/cardInputWidget" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>
