@@ -40,10 +40,11 @@ class DetailFragment(val user: User) : Fragment(), View.OnScrollChangeListener {
         super.onViewCreated(view, savedInstanceState)
         Glide.with(detail_imageView)
             .load(user.profilePictureUrl)
+            .placeholder(R.drawable.placeholder_avatar)
             .into(detail_imageView)
         detail_item_name.text = "" + user.firstName
         detail_item_price.text = "" + user.languagesFormatted()
-        detail_item_detail.text = "" + user.userId
+        detail_item_detail.text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." + user.userId
         detail_imageView.setOnClickListener {
             val a = activity as MainActivity
             a.gotBackToSwipeFragment()

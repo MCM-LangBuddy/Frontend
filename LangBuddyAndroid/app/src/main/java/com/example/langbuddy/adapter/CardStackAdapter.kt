@@ -37,6 +37,7 @@ class CardStackAdapter(
         holder.user = user
         Glide.with(holder.image)
             .load(user.profilePictureUrl)
+            .placeholder(R.drawable.placeholder_avatar)
             .into(holder.image)
         holder.itemView.setOnClickListener(onClickListener)
         viewHolder = holder
