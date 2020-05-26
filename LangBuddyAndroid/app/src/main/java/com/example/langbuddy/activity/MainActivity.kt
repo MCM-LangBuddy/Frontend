@@ -1,4 +1,4 @@
-package com.example.langbuddy
+package com.example.langbuddy.activity
 
 
 import android.app.Activity
@@ -7,6 +7,11 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.langbuddy.fragment.DetailFragment
+import com.example.langbuddy.fragment.MatchesFragment
+import com.example.langbuddy.R
+import com.example.langbuddy.fragment.SwipeFragment
+import com.example.langbuddy.model.User
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.ref.WeakReference
 
@@ -39,17 +44,22 @@ class MainActivity : AppCompatActivity() {
                     1321684,
                     "Martin Schneglberger",
                     "GER ENG DICK",
+                    emptyList(),
+                    emptyList(),
                     "asdf"
                 ), User(
                     242345,
                     "Dominik Grüneis",
                     "GER ENG",
+                    emptyList(),
+                    emptyList(),
                     "asdf"
                 )
 
             )
 
-            val fragment = MatchesFragment(testUsers)
+            val fragment =
+                MatchesFragment(testUsers)
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.add(R.id.fragment_container, fragment)
             fragmentTransaction.addToBackStack(null)
@@ -63,7 +73,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showSwipeFragment() {
         if (!isSwipe) {
-            fragmentManager.popBackStackImmediate();
+            while(fragment_container !is SwipeFragment){
+                fragmentManager.popBackStackImmediate()
+            }
             isSwipe = true;
         }
         list_active.setBackgroundColor(Color.parseColor("#6200ee"))

@@ -1,4 +1,4 @@
-package com.example.langbuddy
+package com.example.langbuddy.adapter
 
 import android.content.Context
 import android.database.DataSetObserver
@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ListAdapter
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.langbuddy.R
+import com.example.langbuddy.model.User
 
 
 class CustomAdapter(
@@ -56,10 +57,10 @@ class CustomAdapter(
             val title: TextView = convertView.findViewById(R.id.title)
             val price: TextView = convertView.findViewById(R.id.price)
             Glide.with(image)
-                .load(matches[position].imageUrl)
+                .load(matches[position].profilePictureUrl)
                 .into(image)
-            title.text = matches[position].name
-            price.text = matches[position].languages
+            title.text = matches[position].firstName
+            price.text = matches[position].languagesFormatted()
         }
         return convertView
     }

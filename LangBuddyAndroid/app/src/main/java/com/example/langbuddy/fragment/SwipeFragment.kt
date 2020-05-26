@@ -1,5 +1,7 @@
-package com.example.langbuddy
+package com.example.langbuddy.fragment
 
+import android.app.Application
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +10,30 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
+import com.example.langbuddy.R
+import com.example.langbuddy.activity.MainActivity
+import com.example.langbuddy.adapter.CardStackAdapter
+import com.example.langbuddy.model.User
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.yuyakaido.android.cardstackview.*
 import io.ktor.client.HttpClient
-import io.ktor.client.features.json.GsonSerializer
-import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.request.get
 import kotlinx.android.synthetic.main.fragment_swipe.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.reflect.Type
+
 
 class SwipeFragment : Fragment(), CardStackListener, View.OnClickListener {
     private val manager by lazy { CardStackLayoutManager(activity!!.applicationContext, this) }
     private var cardStackView: CardStackView? = null
-    private val adapter by lazy { CardStackAdapter(emptyList(), this) }
+    private val adapter by lazy {
+        CardStackAdapter(
+            emptyList(),
+            this
+        )
+    }
     private var currentUser: User? = null
 
     override fun onCreateView(
@@ -33,30 +47,16 @@ class SwipeFragment : Fragment(), CardStackListener, View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPref = activity!!.getSharedPreferences(R.string.preferences.toString(), Context.MODE_PRIVATE) ?: return
+        val userId = sharedPref.getInt(getString(R.string.user_id), -1)
         GlobalScope.launch {
-            val client = HttpClient() {
-                install(JsonFeature) {
-                    serializer = GsonSerializer {
-                        // .GsonBuilder
-                        serializeNulls()
-                        disableHtmlEscaping()
-                    }
-                }
-            }
-
-//            val response = client.get<String>("http://10.0.2.2:3000/products")
-//            val gson = GsonBuilder().serializeNulls().create()
-//            var users = gson.fromJson<Products>(response, Products::class.java)
-            //adapter.setProducts(users.users)
-            val testProducts = mutableListOf<User>()
-            testProducts.add(User(
-                    1321684,
-                    "Dominik Grüneis",
-                    "GER ENG",
-                    "asdf"
-                )
-            )
-            adapter.setProducts(testProducts)
+            val client = HttpClient()
+            val response = client.get<String>("https://mcm-langbuddy.herokuapp.com/api/matching/openMatches/$userId")
+            val listType: Type = object : TypeToken<ArrayList<User?>?>() {}.type
+            val userList: List<User> =
+                Gson().fromJson(response, listType)
+            println("Setting data")
+            adapter.setProducts(userList)
             client.close()
             activity!!.runOnUiThread {
                 setupCardStackView()

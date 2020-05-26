@@ -1,4 +1,4 @@
-package com.example.langbuddy
+package com.example.langbuddy.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.langbuddy.R
+import com.example.langbuddy.model.User
 
 
 class CardStackAdapter(
@@ -18,17 +20,23 @@ class CardStackAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ViewHolder(inflater.inflate(R.layout.item_spot, parent, false))
+        return ViewHolder(
+            inflater.inflate(
+                R.layout.item_spot,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         println("uuuuuuuuuuuuuuuu")
         val user: User = users[position]
-        holder.name.text = user.name
-        holder.languages.text = user.languages
+        holder.name.text = user.firstName
+        holder.languages.text = user.languagesFormatted()
         holder.user = user
         Glide.with(holder.image)
-            .load(user.imageUrl)
+            .load(user.profilePictureUrl)
             .into(holder.image)
         holder.itemView.setOnClickListener(onClickListener)
         viewHolder = holder

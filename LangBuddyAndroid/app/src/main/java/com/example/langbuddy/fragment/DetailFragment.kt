@@ -1,4 +1,4 @@
-package com.example.langbuddy
+package com.example.langbuddy.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.langbuddy.R
+import com.example.langbuddy.activity.MainActivity
+import com.example.langbuddy.model.User
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment(val user: User) : Fragment(), View.OnScrollChangeListener {
@@ -36,11 +39,11 @@ class DetailFragment(val user: User) : Fragment(), View.OnScrollChangeListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Glide.with(detail_imageView)
-            .load(user.imageUrl)
+            .load(user.profilePictureUrl)
             .into(detail_imageView)
-        detail_item_name.text = "" + user.name
-        detail_item_price.text = "" + user.languages
-        detail_item_detail.text = "" + user.id
+        detail_item_name.text = "" + user.firstName
+        detail_item_price.text = "" + user.languagesFormatted()
+        detail_item_detail.text = "" + user.userId
         detail_imageView.setOnClickListener {
             val a = activity as MainActivity
             a.gotBackToSwipeFragment()
