@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken
 import com.yuyakaido.android.cardstackview.*
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
+import io.ktor.client.request.put
 import kotlinx.android.synthetic.main.fragment_swipe.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -35,6 +36,7 @@ class SwipeFragment : Fragment(), CardStackListener, View.OnClickListener {
         )
     }
     private var currentUser: User? = null
+    private val client = HttpClient()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,17 +49,18 @@ class SwipeFragment : Fragment(), CardStackListener, View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sharedPref = activity!!.getSharedPreferences(R.string.preferences.toString(), Context.MODE_PRIVATE) ?: return
+        val sharedPref =
+            activity!!.getSharedPreferences(R.string.preferences.toString(), Context.MODE_PRIVATE)
+                ?: return
         val userId = sharedPref.getInt(getString(R.string.user_id), -1)
         GlobalScope.launch {
-            val client = HttpClient()
-            val response = client.get<String>("https://mcm-langbuddy.herokuapp.com/api/matching/openMatches/$userId")
+            val response =
+                client.get<String>("https://mcm-langbuddy.herokuapp.com/api/matching/openMatches/$userId")
             val listType: Type = object : TypeToken<ArrayList<User?>?>() {}.type
             val userList: List<User> =
                 Gson().fromJson(response, listType)
             println("Setting data")
             adapter.setProducts(userList)
-            client.close()
             activity!!.runOnUiThread {
                 setupCardStackView()
                 setupButton()
@@ -100,12 +103,20 @@ class SwipeFragment : Fragment(), CardStackListener, View.OnClickListener {
     }
 
     override fun onCardSwiped(direction: Direction?) {
+        val sharedPref =
+            activity!!.getSharedPreferences(R.string.preferences.toString(), Context.MODE_PRIVATE)
+                ?: return
+        val userId = sharedPref.getInt(getString(R.string.user_id), -1)
         when (direction) {
             Direction.Right -> {
-                println("Try to match")
+                GlobalScope.launch {
+                    client.put<String>("https://mcm-langbuddy.herokuapp.com/api/matching/acceptMatch/$userId?otherUserId="+currentUser!!.userId)
+                }
             }
             Direction.Left -> {
-                println("Throw it away")
+                GlobalScope.launch {
+                    client.put<String>("https://mcm-langbuddy.herokuapp.com/api/matching/discardMatch/$userId?otherUserId="+currentUser!!.userId)
+                }
             }
             else -> {
                 println("Error. Invalid swipe direction")
@@ -149,7 +160,11 @@ class SwipeFragment : Fragment(), CardStackListener, View.OnClickListener {
 
     override fun onClick(v: View?) {
         val a = activity as MainActivity
-        println("Heeeeeeeeeeeeeeeeeeeeeeeeereeeeeeeeeeeee")
         a.showProductDetailFragment(currentUser!!)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        client.close()
     }
 }
