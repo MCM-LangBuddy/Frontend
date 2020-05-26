@@ -4,8 +4,8 @@ data class User(
     val userId: Int,
     val firstName: String,
     val emailAddress:String,
-    val spokenLanguages:List<Language>,
-    val learningLanguages:List<Language>,
+    val spokenLanguageDtos:List<Language>,
+    val learningLanguagesDtos:List<Language>,
     val profilePictureUrl: String
 ) {
     override fun equals(other: Any?): Boolean {
@@ -23,7 +23,7 @@ data class User(
 
     fun languagesFormatted():String{
         var formattedString=""
-        for(language in spokenLanguages){
+        for(language in spokenLanguageDtos){
             formattedString=formattedString.plus(language.shortName+" ")
         }
         return formattedString

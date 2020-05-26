@@ -58,6 +58,7 @@ class CustomAdapter(
             val price: TextView = convertView.findViewById(R.id.price)
             Glide.with(image)
                 .load(matches[position].profilePictureUrl)
+                .placeholder(R.drawable.placeholder_avatar)
                 .into(image)
             title.text = matches[position].firstName
             price.text = matches[position].languagesFormatted()
