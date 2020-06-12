@@ -29,6 +29,8 @@ cache:
 before_script:
 - chmod +x gradlew
 script:
+- "./gradlew clean build"
+- "./gradlew test"
 - "./gradlew assembleRelease"
 deploy:
   provider: releases

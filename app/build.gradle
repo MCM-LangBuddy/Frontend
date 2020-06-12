@@ -33,7 +33,7 @@ android {
     }
     def isRunningOnTravis = System.getenv("CI") == "true"
 
-    if (true) {
+    if (isRunningOnTravis) {
         // configure keystore
         signingConfigs.release.storeFile = file("../keystoreLangBuddy.jks")
         signingConfigs.release.storePassword = System.getenv("keystore_password")
