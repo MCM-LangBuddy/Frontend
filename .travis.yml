@@ -8,7 +8,6 @@ env:
   - ANDROID_API_LEVEL=29
   - ANDROID_BUILD_TOOLS_VERSION=29.0.2
   - ANDROID_ABI=armeabi-v7a
-  - secure: UC2GpFq+ocsgiph2JfK07qZjm2XrgPWqlAn2Elbznc0wBqTX6WvImDDXIv1xKr6iAjofo17U7Yj4Wup9MFUQ/O+pECuYQ/6nS2W58j/nFqr2f8rp0YmowJax9R7WzIqC3QTdIGkCdXg4V3Q4h7/yVUQ/TIgbZY//z3BkE/7sM19rtlvHM5YvzcGBmfaZ+BwA5h1sjqtlutl7MjvnTicQAlWo8rmzLpzOx5DC16569POShfVEOLNAuFsEGfnbsBYcytqaiLD6Q9GvLvS5z4q+SPHXQYLPeoBztBkR+CDeHhm9ELorH1T2sxN+oYMNjlk1vXTS5PEYqaxyaMbxMD/iBYGgDJRaTfKgj+fGXirHBFhBsHJfdQbEoe9SiVyzgCOHptrj4V2WVaxPc0BXVgLsW1djlbTZ+H7V/arVuagiHPbxHUmX+5nZ8M8IO5MVkkbNyBvrOZqdDjFeRrdmbZqzctMpTN3ZGauZiTKEL7mjeOJPZUDseVSkojfU0RNAtcwSAEORUiQmVhU5DZnTNTqiM9idfjoCeeRQwyAnSJdlaQAFWA5e73x6MUZOCcNjHN2RDRvDY4IO+9TTvF1EToHFAYYj9f/w65lBHxpsTvQ7y8Yen2WJwZjlRfmX3w1b16nnGPhfRJrmbAOwFfJOBoZIRKavI1twtExpf72Tg+T9WpQ=
 android:
   components:
   - tools
@@ -47,5 +46,3 @@ deploy:
 before_install:
 - openssl aes-256-cbc -K $encrypted_6d057148e958_key -iv $encrypted_6d057148e958_iv
   -in keystoreLangBuddy.jks.enc -out keystoreLangBuddy.jks -d
-- openssl aes-256-cbc -k "$super_secret_password" -in keystoreLangBuddy.jks.enc -out
-  keystoreLangBuddy.jks -d
