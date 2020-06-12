@@ -40,13 +40,6 @@ deploy:
     repo: MCM-LangBuddy/Frontend
     tags: true
 
-before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "LangBuddyInc"
-  - git config --local user.email "lang@buddy.com"
-  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-  - git tag $TRAVIS_TAG
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_6d057148e958_key -iv $encrypted_6d057148e958_iv
   -in keystoreLangBuddy.jks.enc -out keystoreLangBuddy.jks -d
