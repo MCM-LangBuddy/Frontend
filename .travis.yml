@@ -28,8 +28,8 @@ cache:
 before_script:
 - chmod +x gradlew
 script:
-#- "./gradlew clean build"
-#- "./gradlew test"
+- "./gradlew clean build"
+- "./gradlew test"
 - "./gradlew assembleRelease"
 deploy:
   provider: releases
@@ -39,7 +39,7 @@ deploy:
   api_key: $GITHUB_TOKEN
   file: "/home/travis/build/MCM-LangBuddy/Frontend/app/build/outputs/apk/release/*"
   on:
-#    branch: release
+    branch: release
     repo: MCM-LangBuddy/Frontend
     tags: true
 
