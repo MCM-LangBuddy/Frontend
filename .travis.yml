@@ -28,12 +28,15 @@ cache:
 before_script:
 - chmod +x gradlew
 script:
+#- "./gradlew clean build"
+#- "./gradlew test"
 - "./gradlew assembleRelease"
 deploy:
   provider: releases
   skip_cleanup: true
   overwrite: true
   file_glob: true
+  api_key: $GITHUB_TOKEN
   file: "/home/travis/build/MCM-LangBuddy/Frontend/app/build/outputs/apk/release/*"
   on:
 #    branch: release
