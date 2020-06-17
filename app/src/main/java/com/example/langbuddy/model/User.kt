@@ -9,10 +9,8 @@ data class User(
     val profilePictureUrl: String
 ) {
     override fun equals(other: Any?): Boolean {
-        if (other is User) {
-            if (other.userId == userId) {
+        if (other is User && other.userId == userId) {
                 return true
-            }
         }
         return false
     }

@@ -39,7 +39,6 @@ deploy:
   api_key: $GITHUB_TOKEN
   file: "/home/travis/build/MCM-LangBuddy/Frontend/app/build/outputs/apk/release/*"
   on:
-    branch: release
     tags: true
 
 before_install:

@@ -55,34 +55,4 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!--    <com.facebook.login.widget.LoginButton-->
-    <!--        android:id="@+id/logut_button"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_gravity="center_horizontal"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:layout_marginBottom="16dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent" />-->
-
-    <!--    <com.stripe.android.view.CardInputWidget-->
-    <!--        android:id="@+id/cardInputWidget"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintBottom_toTopOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.327"-->
-    <!--        tools:layout_editor_absoluteX="0dp" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/payButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:text="Pay"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.5"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/cardInputWidget" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

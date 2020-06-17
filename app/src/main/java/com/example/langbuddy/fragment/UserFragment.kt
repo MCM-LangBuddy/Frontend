@@ -34,10 +34,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 const val FILE_REQUEST = 2
 
@@ -92,7 +88,6 @@ class UserFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        println("iiiiiiiiiiiiiiii"+resultCode)
         when (requestCode) {
             Activity.RESULT_CANCELED -> {
                 println("Errorrrrrr")
@@ -100,7 +95,6 @@ class UserFragment : Fragment() {
             FILE_REQUEST -> {
                 val uri = data?.data
                 if (uri != null) {
-                    println("eeeeeeeeeeeee")
                     createImageData(uri)
                     uploadImage()
                 }
@@ -120,27 +114,9 @@ class UserFragment : Fragment() {
 
     private fun uploadImage() {
         imageData ?: return
-        val data: List<PartData> = formData {
-            append("file", imageData!!)
-        }
         GlobalScope.launch {
-            println("aaaaaaaaaaaaaaaa")
-//            val response=client.submitFormWithBinaryData<String>("https://mcm-langbuddy.herokuapp.com/api/storage/uploadProfilePicture/$userId",data)
-            //println("uuuuuuuuuuuuuu "+response)
-
-//            client.post<String>("https://mcm-langbuddy.herokuapp.com/api/storage/uploadProfilePicture/$userId") {
-//                body = MultiPartFormDataContent(
-//                    formData {
-//                        append("file", imageData!!,"file.png")
-//                    }
-//                )
-//            }
-
-
+            println("uploading doesn't work")
         }
-
-
-
     }
 
 

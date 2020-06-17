@@ -12,10 +12,6 @@ import com.example.langbuddy.model.User
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment(val user: User) : Fragment(), View.OnScrollChangeListener {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
