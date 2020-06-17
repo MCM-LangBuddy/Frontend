@@ -27,7 +27,9 @@ class CustomAdapter(
         return true
     }
 
+    //We need no data observer
     override fun registerDataSetObserver(observer: DataSetObserver?) {}
+    //We need no data observer
     override fun unregisterDataSetObserver(observer: DataSetObserver?) {}
     override fun getCount(): Int {
         return matches.size

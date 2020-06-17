@@ -30,7 +30,6 @@ class CardStackAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        println("uuuuuuuuuuuuuuuu")
         val user: User = users[position]
         holder.name.text = user.firstName
         holder.languages.text = user.languagesFormatted()

@@ -42,9 +42,6 @@ class MainActivity : AppCompatActivity() {
         checkAndRequestPermissions()
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-//        val fragmentTransaction = fragmentManager.beginTransaction()
-//        fragmentTransaction.add(R.id.fragment_container, swipeFragment)
-//        fragmentTransaction.commit()
         getListButton.setOnClickListener {
             showListFragment()
         }
@@ -164,7 +161,6 @@ fun gotBackToSwipeFragment() {
 
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    val weakActivity = WeakReference<Activity>(this)
 }
 }
 
