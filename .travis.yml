@@ -33,7 +33,9 @@ cache:
 before_script:
 - chmod +x gradlew
 script:
-- ./gradlew sonarqube
+- "./gradlew jacocoTestReport"
+- "./gradlew testDebugUnitTest"
+- "./gradlew sonarqube"
 #- "./gradlew clean build"
 #- "./gradlew test"
 #- "./gradlew assembleRelease"
