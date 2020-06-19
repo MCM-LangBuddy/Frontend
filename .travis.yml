@@ -3,6 +3,11 @@ sudo: required
 jdk: oraclejdk8
 notifications:
   email: false
+addons:
+  sonarcloud:
+    organization: "mcm-langbuddy"
+    token:
+      secure: "okf2FiDNTFv8TqaT4OhafVjA/GD2w2jtDcZqnnwilMFIHg2O0r8l15kNJEy7i0oY5I7pwt9bySgHXEFTyWN3oVgdb1JuDVXKQ4ShoZRAgxqvtyEV0zAp6BGIAMwJTrYazhaS5EH2x2GEo2C1VUvuR4h1temlRZHtMvKnnlc58Ir/paVj1OnsolmF5JS8bTOOWmhYTu05xY0x+H7jHovUCtzorxs/bmb7CScxUelpqHzHRm+jXi7/C1W6eA1c3PUSPpjwd9UnFsXu9CwLRfdXSN+laLqRiCOhUIQNQwZZ5250KOf5z9sJ6OAvREPvUDlLF12sLi11LzHZP147SOJAWKInMiVa/FpJLPrrNiYqM84eESuOT+TXQoSi5bD4TULLhFaCmJa3ED1mi3DQo3ZDqlepqAVv+r9DSB9krkn+3IPFU4pNYPW2i3r1ZiVILc7tsQadS8SjelsgFm8xfjpHR5PedRU3FXDi8ukNcZL2yjTvftzSLB8EE/zs63kVPg6E9Y8we6uYknDeTHMpkbXpoSbAI9YTl2QHFV5pnfFz6CxIBC3sVd1AVS3IxppVXva7be3TNTrWSEZtjsrwPlYyYzz7P4DWp6JZ7rFXOdSzN+XNJWOFvYJt9OVeYcOjDXpHOXFKusPEdGUHu9xH4tGZQg4ItAPrBclairl/21smEow=" # encrypted value of your token
 env:
   global:
   - ANDROID_API_LEVEL=29
@@ -28,9 +33,10 @@ cache:
 before_script:
 - chmod +x gradlew
 script:
-- "./gradlew clean build"
-- "./gradlew test"
-- "./gradlew assembleRelease"
+- ./gradlew sonarqube
+#- "./gradlew clean build"
+#- "./gradlew test"
+#- "./gradlew assembleRelease"
 deploy:
   provider: releases
   skip_cleanup: true

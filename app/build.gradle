@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "org.sonarqube"
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = '0.8.2' //Use latest version
+}
 
 android {
     compileSdkVersion 29
@@ -26,7 +32,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
+        debug {
+            testCoverageEnabled true
+        }
     }
+
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+        animationsDisabled true
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
     packagingOptions {
         exclude 'META-INF/*.kotlin_module'
     }
@@ -40,7 +58,55 @@ android {
         signingConfigs.release.keyPassword = System.getenv("keystore_alias_password")
     }
 
+    sonarqube {
+        properties {
+            property "sonar.projectKey", "MCM-LangBuddy_Frontend"
+            property "sonar.organization", "mcm-langbuddy"
+            property "sonar.host.url", "https://sonarcloud.io"
+            property "sonar.login", "07c1fe2221fef2c4c487fbef625841c5d0268556"
+            property "sonar.coverage.jacoco.xmlReportPaths","\"${rootProject.buildDir}/coverage-report.xml\""
+        }
+    }
+}
 
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+
+    group "Reporting"
+    description "Generate Jacoco coverage reports."
+
+    reports {
+        xml.enabled = true
+        xml.destination file("${rootProject.buildDir}/coverage-report.xml")
+    }
+
+    def javaClasses = []
+    def kotlinClasses = []
+    def javaSrc = []
+    def kotlinSrc = []
+    def execution = []
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+
+    rootProject.subprojects.each { proj ->
+        javaClasses   << fileTree(dir: "$proj.buildDir/intermediates/javac/debug", excludes: fileFilter)
+        kotlinClasses << fileTree(dir: "$proj.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+        javaSrc       << "$proj.projectDir/src/main/java"
+        kotlinSrc     << "$proj.projectDir/src/main/kotlin"
+        execution     << fileTree(dir: proj.buildDir,
+                includes: ['jacoco/testDebugUnitTest.exec',
+                           'outputs/code_coverage/debugAndroidTest/connected/**/*.ec'])
+    }
+
+    sourceDirectories = files([javaSrc, kotlinSrc])
+    classDirectories = files([javaClasses, kotlinClasses])
+
+    print execution
+
+    executionData = files(execution)
+
+    doLast() {
+        print "file://${reports.html.destination}/index.html"
+    }
 }
 
 dependencies {
